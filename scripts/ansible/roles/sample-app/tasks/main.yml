@@ -1,0 +1,23 @@
+- name: Add Node packages to yum
+  shell: |
+    curl -fsSL https://rpm.nodesource.com/setup_18.x | bash -
+    dnf install -y nodejs
+  args:
+    executable: /bin/bash
+
+- name: Create app directory
+  file:
+    path: /opt/sample-app
+    state: directory
+
+- name: Copy app.js
+  copy:
+    src: app.js
+    dest: /opt/sample-app/app.js
+    mode: "0644"
+
+- name: Start app on port 8080
+  shell: |
+    nohup node /opt/sample-app/app.js > /var/log/sample-app.log 2>&1 &
+  args:
+    executable: /bin/bash
