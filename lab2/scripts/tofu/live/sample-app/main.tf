@@ -19,7 +19,7 @@ variable "instances" {
 
 module "sample_app" {
   for_each      = var.instances
-  source        = "/home/yanis/devops_base/td2/scripts/tofu/modules/ec2-instance"
+  source = "github.com/yanis-nouili/devops_base.git//lab2/scripts/tofu/modules/ec2-instance?ref=v1.0.1"
   ami_id        = var.ami_id
   name          = each.key
   instance_type = each.value.instance_type
