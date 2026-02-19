@@ -1,0 +1,18 @@
+/* Reset propre */
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f7fa;
+}
+
+/* IMPORTANT : pas de flex ici */
+#root {
+  width: 100%;
+}
