@@ -17,26 +17,18 @@ const pool = new Pool({
     database: process.env.DB_NAME || 'tasksdb',
 });
 
-async function startServer() {
-    try {
-        // Vérification de la connexion + création de la table si elle n'existe pas
-        await pool.query(`
-            CREATE TABLE IF NOT EXISTS tasks (
-                id SERIAL PRIMARY KEY,
-                matiere TEXT,
-                title TEXT NOT NULL,
-                description TEXT,
-                priority TEXT,
-                status TEXT DEFAULT 'À faire'
-            )
-        `);
-        console.log("Base de données PostgreSQL et table prêtes ! ✅");
-
-        app.listen(PORT, () => console.log(`🚀 Serveur sur http://localhost:${PORT}`));
-    } catch (err) {
-        console.error("Erreur de connexion à la base de données :", err);
-        process.exit(1);
-    }
+async function initDB() {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS tasks (
+            id SERIAL PRIMARY KEY,
+            matiere TEXT,
+            title TEXT NOT NULL,
+            description TEXT,
+            priority TEXT DEFAULT 'Basse',
+            status TEXT DEFAULT 'À faire'
+        )
+    `);
+    console.log("Base de données PostgreSQL et table prêtes ! ✅");
 }
 
 // GET : Lire toutes les tâches
@@ -112,4 +104,14 @@ app.get('/health', async (req, res) => {
     }
 });
 
-startServer();
+// Permet l'import dans les tests (app.test.js de tes camarades)
+if (process.env.NODE_ENV !== 'test') {
+    initDB().then(() => {
+        app.listen(PORT, () => console.log(`🚀 Serveur sur http://localhost:${PORT}`));
+    }).catch(err => {
+        console.error("Erreur de connexion à la base de données :", err);
+        process.exit(1);
+    });
+}
+
+module.exports = app;
