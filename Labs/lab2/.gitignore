@@ -1,0 +1,15 @@
+# OpenTofu / Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Packer (optionnel)
+packer_cache/
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo

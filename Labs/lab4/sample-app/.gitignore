@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+*.zip
+.DS_Store
+.env
+*.log
+
+# AWS CLI installation
+aws/
+awscliv2.zip

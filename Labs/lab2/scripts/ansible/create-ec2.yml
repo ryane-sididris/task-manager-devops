@@ -1,0 +1,66 @@
+- name: Deploy an EC2 instance in AWS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  environment:
+    AWS_REGION: eu-north-1
+
+  vars:
+    region: eu-north-1
+    instance_type: t3.micro
+    sg_name: sample-app-ansible
+    key_name: ansible-ch2
+    tag_name: sample-app-ansible
+
+  tasks:
+    - name: Get latest Amazon Linux 2023 AMI
+      amazon.aws.ec2_ami_info:
+        owners: amazon
+        filters:
+          name: "al2023-ami-*-x86_64"
+        region: "{{ region }}"
+      register: ami_result
+
+    - name: Create security group (HTTP 8080 + SSH 22)
+      amazon.aws.ec2_security_group:
+        name: "{{ sg_name }}"
+        description: Allow HTTP and SSH traffic
+        region: "{{ region }}"
+        rules:
+          - proto: tcp
+            ports: [8080]
+            cidr_ip: 0.0.0.0/0
+          - proto: tcp
+            ports: [22]
+            cidr_ip: 0.0.0.0/0
+      register: aws_security_group
+
+    - name: Create a new EC2 key pair
+      amazon.aws.ec2_key:
+        name: "{{ key_name }}"
+        region: "{{ region }}"
+        # Le fichier sera créé dans le dossier courant
+        file_name: "{{ key_name }}.pem"
+      no_log: true
+      register: aws_ec2_key_pair
+
+    - name: Launch EC2 instance
+      amazon.aws.ec2_instance:
+        name: "{{ tag_name }}"
+        key_name: "{{ aws_ec2_key_pair.key.name }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ (ami_result.images | sort(attribute='creation_date') | last).image_id }}"
+        wait: true
+        region: "{{ region }}"
+        security_group: "{{ aws_security_group.group_id }}"
+        tags:
+          Ansible: ch2_instances
+      register: ec2_instance
+
+    - name: Show instance info
+      ansible.builtin.debug:
+        msg:
+          - "InstanceId: {{ ec2_instance.instances[0].instance_id }}"
+          - "Public IP: {{ ec2_instance.instances[0].public_ip_address }}"
+          - "Try: http://{{ ec2_instance.instances[0].public_ip_address }}:8080"
