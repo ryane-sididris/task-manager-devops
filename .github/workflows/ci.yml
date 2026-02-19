@@ -12,6 +12,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd Project/backend
+          npm install
+
+      - name: Run Backend Tests
+        run: |
+          cd Project/backend
+          npm test
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -30,4 +45,4 @@ jobs:
         with:
           context: ./Project/frontend
           push: true
-          tags: rsididris/task-manager-frontend:latest.
+          tags: rsididris/task-manager-frontend:latest
