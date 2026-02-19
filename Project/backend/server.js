@@ -4,15 +4,14 @@ const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
 let db;
 
-async function startServer() {
-    try {
+async function initDB() {
+    if (!db) {
         db = await open({
             filename: './database.db',
             driver: sqlite3.Database
@@ -28,40 +27,38 @@ async function startServer() {
                 status TEXT DEFAULT 'À faire'
             )
         `);
-        console.log("Base de données et table prêtes ! ✅");
-
-        app.listen(PORT, () => console.log(`🚀 Serveur sur http://localhost:${PORT}`));
-    } catch (err) { console.error(err); }
+    }
+    return db;
 }
 
-// GET : Lire toutes les tâches
 app.get('/tasks', async (req, res) => {
-    const tasks = await db.all('SELECT * FROM tasks');
+    const database = await initDB();
+    const tasks = await database.all('SELECT * FROM tasks');
     res.json(tasks);
 });
 
-// POST : Créer une tâche (matiere devient optionnelle pour pas faire bugger le front)
 app.post('/tasks', async (req, res) => {
     const { matiere, title, description, priority } = req.body;
     if (!title) return res.status(400).json({ error: "Le titre est obligatoire !" });
 
-    const result = await db.run(
+    const database = await initDB();
+    const result = await database.run(
         'INSERT INTO tasks (matiere, title, description, priority) VALUES (?, ?, ?, ?)',
         [matiere || "Général", title, description, priority || 'Basse']
     );
-    const newTask = await db.get('SELECT * FROM tasks WHERE id = ?', result.lastID);
+    const newTask = await database.get('SELECT * FROM tasks WHERE id = ?', result.lastID);
     res.status(201).json(newTask);
 });
 
-// PUT : Modifier une tâche (Statut, Titre, etc.) - INDISPENSABLE POUR LE FRONT
 app.put('/tasks/:id', async (req, res) => {
     const { id } = req.params;
     const { title, description, priority, status, matiere } = req.body;
 
-    const task = await db.get('SELECT * FROM tasks WHERE id = ?', id);
+    const database = await initDB();
+    const task = await database.get('SELECT * FROM tasks WHERE id = ?', id);
     if (!task) return res.status(404).json({ error: "Tâche non trouvée" });
 
-    await db.run(
+    await database.run(
         `UPDATE tasks SET title = ?, description = ?, priority = ?, status = ?, matiere = ? WHERE id = ?`,
         [
             title || task.title,
@@ -72,13 +69,20 @@ app.put('/tasks/:id', async (req, res) => {
             id
         ]
     );
-    res.json({ message: "Tâche mise à jour ! ✅" });
+    res.json({ message: "Tâche mise à jour !" });
 });
 
-// DELETE : Supprimer une tâche
 app.delete('/tasks/:id', async (req, res) => {
-    await db.run('DELETE FROM tasks WHERE id = ?', req.params.id);
+    const database = await initDB();
+    await database.run('DELETE FROM tasks WHERE id = ?', req.params.id);
     res.json({ message: "Tâche supprimée !" });
 });
 
-startServer();
+if (process.env.NODE_ENV !== 'test') {
+    const PORT = 3000;
+    initDB().then(() => {
+        app.listen(PORT, () => console.log(`🚀 Serveur sur http://localhost:${PORT}`));
+    });
+}
+
+module.exports = app;
