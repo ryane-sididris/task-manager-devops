@@ -64,28 +64,24 @@ Les contributions réalisées sur le frontend restent toutefois visibles via d�
 ## Backend — Task Manager API (Node.js + Express)
 
 ### Fait par
-- **Backend : Sofiane MOUHOUB**
+ **Backend : Sofiane MOUHOUB**
 
 ### Présentation
-Cette partie du projet correspond à l'API REST du **Task Manager** développée en **Node.js (Express)**.  
-Le serveur gère la logique métier, la persistance des données dans PostgreSQL et expose les points d'entrée nécessaires au bon fonctionnement du frontend.
+Le backend correspond à l’API REST du Task Manager développée en **Node.js (Express)**.  
+Il gère la logique métier, l’accès à la base de données **PostgreSQL**, et expose les endpoints nécessaires au fonctionnement du frontend.
 
 ---
 
 ### Fonctionnalités implémentées
-- **CRUD complet**
-  - Récupérer la liste des tâches
-  - Créer une nouvelle tâche
-  - Modifier une tâche (titre, description, priorité, statut)
-  - Supprimer une tâche
-- **Statuts supportés** : **À faire**, **En cours**, **Fini**
-- **Priorité** : **Basse / Haute / Critique**
-- **Santé du système** : Endpoint `/health` pour monitoring (Base de données + Serveur)
-- **CORS & JSON** : Entièrement configuré pour accepter les requêtes du frontend React
+Le service expose une API permettant de **créer, lire, mettre à jour et supprimer** des tâches (CRUD).  
+Les statuts supportés sont **À faire**, **En cours** et **Fini**, et chaque tâche peut inclure une priorité (**Basse**, **Haute**, **Critique**).  
+
+Un endpoint de santé `GET /health` permet de vérifier l’état du serveur et de la base de données (utile pour le monitoring).  
+Le backend accepte les requêtes du frontend grâce à une configuration **CORS** et gère les payloads **JSON**.
 
 ---
 
-### API Exposée (contrat fourni)
+### API Exposée
 Le backend expose les endpoints suivants :
 
 - `GET /tasks` — récupérer toutes les tâches
@@ -112,11 +108,11 @@ Prérequis : Docker installé sur la machine.
 
 ## Se placer dans le dossier backend
 ```bash
-cd devops_base/backend
+cd devops_base/Project/backend
 ```
 ## Construire l'image Docker
 ```bash
-docker build -t task-manager-backend.
+docker build -t task-manager-backend .
 ```
 
 ## Lancer le conteneur sur le port 3000
