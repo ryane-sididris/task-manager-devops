@@ -30,7 +30,7 @@ Le frontend permet de gérer des tâches (CRUD) et consomme l’API REST exposé
 - **Filtre par statut** (Tous / À faire / En cours / Fini)
 - **Gestion d’erreurs** (réseau / backend + affichage côté UI)
 - **Mode Mock / Mode API**
-  - `USE_MOCK=true` : utilisation de données mock (sans backend)
+  - `USE_MOCK=true` : utilisation de données mock, (cela été fait au debut sans backend)
   - `USE_MOCK=false` : connexion au backend via API
 
 ---
@@ -54,7 +54,7 @@ Prérequis : Node.js (>= 18 recommandé)
 cd Project/frontend
 npm install
 npm run dev
-
+```
 
 ### Note sur l’historique Git (information)
 
