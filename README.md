@@ -253,6 +253,57 @@ Retournez sur votre navigateur et **rafraîchissez la page**, l'application est 
 
 ---
 
+## Base de Données PostgreSQL & Site DevOps (Quartz + Cloudflare)
+
+**Fait par : Adam NOUARI**
+
+### Base de Données PostgreSQL
+
+La base de données est une instance PostgreSQL 15 Alpine déployée en conteneur. Elle stocke les tâches de l'application et est initialisée automatiquement au démarrage via un script `init.sql`.
+
+**Schéma de la table :**
+```sql
+CREATE TABLE IF NOT EXISTS tasks (
+    id SERIAL PRIMARY KEY,
+    matiere TEXT,
+    title TEXT NOT NULL,
+    description TEXT,
+    priority TEXT DEFAULT 'Basse',
+    status TEXT DEFAULT 'À faire'
+);
+```
+
+**Connexion via variables d'environnement :**
+- `DB_HOST` : hôte de la base de données
+- `DB_PORT` : port (5432 par défaut)
+- `DB_USER` : utilisateur PostgreSQL
+- `DB_PASSWORD` : mot de passe
+- `DB_NAME` : nom de la base (`tasksdb`)
+
+**Persistance des données :** Un volume Docker `postgres_data` garantit que les données sont conservées même après l'arrêt des conteneurs.
+
+---
+
+### Site DevOps (Quartz + Cloudflare Pages)
+
+Le portfolio du cours est déployé sur Cloudflare Pages via Quartz. Il centralise tous les rapports de labs et le rapport du projet final.
+
+**URL du site :** https://ee102b22.devops-quartz-pages-8uc.pages.dev
+
+**Contenu du site :**
+- Lab 1 — Introduction au déploiement
+- Lab 2 — Infrastructure as Code
+- Lab 3 — Déploiement d'Applications
+- Lab 4 — Version Control, Build Systems et Tests
+- Lab 5 — CI/CD avec Kubernetes
+- Projet Final — Task Manager
+
+**Déploiement :**
+```bash
+cd ~/devops-website
+make site/update
+```
+
 ### Auteurs
 
 Réalisé par Yanis NOUILI, Yacine OUALIKEN, Ryane SID IDRIS, Sofiane MOUHOUB, Adam NOUARI

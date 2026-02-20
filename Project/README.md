@@ -128,6 +128,92 @@ docker run -p 3000:3000 task-manager-backend
 
 ---
 
+## Base de Données PostgreSQL
+
+**Fait par : Adam NOUARI**
+
+### Présentation
+La base de données est une instance **PostgreSQL 15 Alpine** déployée en conteneur Docker. Elle assure la persistance des tâches de l'application et est initialisée automatiquement au démarrage via un script `init.sql`.
+
+---
+
+### Schéma de la base de données
+```sql
+CREATE TABLE IF NOT EXISTS tasks (
+    id SERIAL PRIMARY KEY,
+    matiere TEXT,
+    title TEXT NOT NULL,
+    description TEXT,
+    priority TEXT DEFAULT 'Basse',
+    status TEXT DEFAULT 'À faire'
+);
+```
+
+### Configuration via variables d'environnement
+
+| Variable | Valeur par défaut | Description |
+|----------|-------------------|-------------|
+| `DB_HOST` | `db` | Hôte de la base de données |
+| `DB_PORT` | `5432` | Port PostgreSQL |
+| `DB_USER` | `postgres` | Utilisateur |
+| `DB_PASSWORD` | `postgres` | Mot de passe |
+| `DB_NAME` | `tasksdb` | Nom de la base |
+
+### Points clés de l'implémentation
+
+- **Persistance** : Volume Docker `postgres_data` pour conserver les données après redémarrage
+- **Initialisation automatique** : Le script `init.sql` est monté dans `/docker-entrypoint-initdb.d/`
+- **Healthcheck** : Vérification via `pg_isready` avant le démarrage du backend
+- **Migration SQLite → PostgreSQL** : Remplacement du driver `sqlite3` par `pg` avec connection pooling
+
+---
+
+## Site DevOps — Portfolio Quartz + Cloudflare Pages
+
+**Fait par : Adam NOUARI**
+
+### Présentation
+Le portfolio du cours est un site statique généré avec **Quartz v4** et déployé automatiquement sur **Cloudflare Pages**. Il centralise tous les rapports de labs et le rapport du projet final.
+
+**URL du site :** https://ee102b22.devops-quartz-pages-8uc.pages.dev
+
+---
+
+### Contenu du site
+
+| Page | Description |
+|------|-------------|
+| Lab 1 | Introduction au déploiement |
+| Lab 2 | Infrastructure as Code |
+| Lab 3 | Déploiement d'Applications |
+| Lab 4 | Version Control, Build Systems et Tests |
+| Lab 5 | CI/CD avec Kubernetes |
+| Projet Final | Task Manager — rapport complet |
+
+---
+
+### Déploiement
+
+Prérequis : WSL Ubuntu, nvm, gh CLI, wrangler, jq
+
+**Première installation :**
+```bash
+cd ~/devops-website
+make site/setup
+```
+
+**Mise à jour du site après modification du contenu :**
+```bash
+cd ~/devops-website
+make site/update
+```
+
+**Vérification locale avant déploiement :**
+```bash
+cd ~/devops-website/devops-quartz-site
+npx quartz build --serve
+```
+
 # Docker & CI/CD – Infrastructure et Automatisation
 
 **Fait par : Ryane**
