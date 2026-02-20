@@ -236,7 +236,7 @@ minikube service frontend
 ```
 
 Cette commande ouvre automatiquement votre navigateur.  
-Si la page ne s'ouvre pas, cliquez sur le deuxieme lien lien.
+Si la page ne s'ouvre pas, cliquez sur le deuxieme lien.
 
 ---
 
@@ -258,3 +258,4 @@ Retournez sur votre navigateur et **rafraîchissez la page**, l'application est 
 ### Auteurs
 
 Réalisé par Yanis NOUILI, Yacine OUALIKEN, Ryane SID IDRIS, Sofiane MOUHOUB, Adam NOUARI
+
