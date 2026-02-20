@@ -61,6 +61,66 @@ npm run dev
 À un moment du projet, l’historique Git de la branche principale a été supprimé par erreur (ex. force-push / reset), ce qui a pu entraîner la disparition de certains commits dans l’onglet “Commits” de GitHub.
 Les contributions réalisées sur le frontend restent toutefois visibles via d’autres éléments de traçabilité (Activity GitHub ou historique local) et le code du frontend présent dans ce dépôt correspond bien au travail réalisé sur cette partie.
 
+---
+
+## Déploiement Kubernetes (Minikube)
+
+### Prérequis
+- **kubectl** installé
+- **Minikube** installé
+- **Docker** démarré (Minikube utilise le driver Docker)
+
+Vérifications rapides :
+```bash
+kubectl config current-context
+minikube status
+```
+
+## Étapes de lancement (Kubernetes / Minikube)
+
+### 1) Démarrer Minikube
+```bash
+minikube start --driver=docker
+```
+
+##2) Déployer l’application sur le cluster
+
+Ouvrir un premier terminal et se placer à la racine du projet (là où se trouve le dossier k8s/) :
+```bash
+kubectl apply -f k8s/
+```
+
+##3) Attendre que les pods soient prêts
+
+Surveiller le démarrage des pods :
+
+```bash
+kubectl get pods -w
+```
+Attendre que tous les pods soient Running et Ready (1/1), puis arrêter l’affichage avec Ctrl + C (cela n’arrête pas les pods, uniquement le watch).
+
+##4) Accéder au frontend
+
+Toujours dans le premier terminal, récupérer l’URL du service frontend :
+
+```bash
+minikube service frontend --url
+```
+
+Ouvrir l’URL affichée dans un navigateur (souvent un NodePort du type http://192.168.49.2:30001).
+
+##5) Exposer le backend en local (port-forward)
+
+Ouvrir un deuxième terminal et lancer :
+
+```bash
+kubectl port-forward service/backend 3000:3000
+```
+
+Le backend devient accessible sur :
+
+http://localhost:3000
+
 
 ---
 
