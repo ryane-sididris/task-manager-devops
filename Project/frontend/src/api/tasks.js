@@ -1,6 +1,6 @@
 // src/api/tasks.js
-const API_URL = import.meta.env.VITE_API_URL;
-const USE_MOCK = true; // ← passer à false quand le backend prêt
+const API_URL = "http://localhost:3000";
+const USE_MOCK = false; // ← passer à false quand le backend prêt
 
 let mockTasks = [
   { id: 2, title: "Tester CI/CD", description: "Pipeline",priority : "Basse", status: "En cours", created_at: new Date().toISOString() },
