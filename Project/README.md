@@ -102,22 +102,29 @@ Le backend est conçu pour s'aligner sur le contrat API attendu par le frontend.
 ### Lancer le backend en local
 Prérequis : Node.js (>= 18 recommandé)
 
+```bash
 cd devops_base/backend
 npm install
 node server.js
+```
 
 ### Dockerisation (DevOps)
 Le projet inclut une configuration Docker pour simplifier le déploiement et l'isolation du service.
 Prérequis : Docker installé sur la machine.
 
 ## Se placer dans le dossier backend
+```bash
 cd devops_base/backend
-
+```
 ## Construire l'image Docker
-docker build -t task-manager-backend .
+```bash
+docker build -t task-manager-backend.
+```
 
 ## Lancer le conteneur sur le port 3000
+```bash
 docker run -p 3000:3000 task-manager-backend
+```
 
 ---
 
