@@ -110,13 +110,13 @@ node server.js
 Le projet inclut une configuration Docker pour simplifier le déploiement et l'isolation du service.
 Prérequis : Docker installé sur la machine.
 
-# Se placer dans le dossier backend
+## Se placer dans le dossier backend
 cd devops_base/backend
 
-# Construire l'image Docker
+## Construire l'image Docker
 docker build -t task-manager-backend .
 
-# Lancer le conteneur sur le port 3000
+## Lancer le conteneur sur le port 3000
 docker run -p 3000:3000 task-manager-backend
 
 ---
