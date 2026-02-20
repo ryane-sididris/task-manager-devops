@@ -111,66 +111,101 @@ L'objectif de cette infrastructure est de garantir :
 - Une intégration continue fiable et sécurisée.
 
 
-## Déploiement Kubernetes (Minikube)
+# Déploiement Kubernetes avec Minikube
 
-### Prérequis
-- **kubectl** installé
-- **Minikube** installé
-- **Docker** démarré (Minikube utilise le driver Docker)
+## Prérequis
 
-Vérifications rapides :
+Avant de commencer, assurez-vous que :
+
+-  **Minikube** est installé  
+-  **kubectl** est installé  
+-  **Docker est lancé**
+
+Vous pouvez vérifier les installations avec :
+
 ```bash
-kubectl config current-context
-minikube status
+kubectl version --client
+minikube version
 ```
 
 ---
 
-## Étapes de lancement (Kubernetes / Minikube)
 
-### 1) Démarrer Minikube
+## Ouvrir un premier terminal
+
+### Se placer à la racine du projet
+
+Assurez-vous d’être dans le dossier :
+
 ```bash
-minikube start --driver=docker
+cd devops_ops-main
 ```
 
-## 2) Déployer l’application sur le cluster
+---
 
-Ouvrir un premier terminal et se placer à la racine du projet (là où se trouve le dossier k8s/) :
+### Déployer les ressources Kubernetes
+
 ```bash
 kubectl apply -f k8s/
 ```
 
-## 3) Attendre que les pods soient prêts
+Cette commande crée tous les objets Kubernetes définis dans le dossier `k8s/` (Deployments, Services, etc.).
 
-Surveiller le démarrage des pods :
+---
+
+### Vérifier le démarrage des pods
 
 ```bash
 kubectl get pods -w
 ```
-Attendre que tous les pods soient Running et Ready (1/1), puis arrêter l’affichage avec Ctrl + C (cela n’arrête pas les pods, uniquement le watch).
 
-## 4) Accéder au frontend
+- Attendre que **tous les pods soient en `Running`**
+- Vérifier qu’ils soient **Ready (1/1)**
+- Une fois que tout est prêt → faire `Ctrl + C`
 
-Toujours dans le premier terminal, récupérer l’URL du service frontend :
+Cela arrête uniquement l’affichage, **pas les pods**.
+
+---
+
+### Accéder au frontend
+
+Toujours dans le premier terminal :
 
 ```bash
-minikube service frontend --url
+minikube service frontend
 ```
 
-Ouvrir l’URL affichée dans un navigateur (souvent un NodePort du type http://192.168.49.2:30001).
+Cette commande ouvre automatiquement votre navigateur.  
+Le frontend sera accessible sur le port **30001**.
 
-## 5) Exposer le backend en local (port-forward)
+---
 
-Ouvrir un deuxième terminal et lancer :
+## Ouvrir un deuxième terminal
+
+### Se placer à la racine du projet
+
+```bash
+cd devops_ops-main
+```
+
+---
+
+### Exposer le backend en local 
 
 ```bash
 kubectl port-forward service/backend 3000:3000
 ```
 
-Le backend devient accessible sur :
+Le backend devient alors accessible sur :
 
+```
 http://localhost:3000
+```
 
+---
+
+
+Retournez sur votre navigateur et **rafraîchissez la page**, l'application est maintenant fonctionnelle
 
 ---
 
