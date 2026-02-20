@@ -173,7 +173,7 @@ minikube service frontend
 ```
 
 Cette commande ouvre automatiquement votre navigateur.  
-Le frontend sera accessible sur le port **30001**.
+Le frontend sera accessible sur le port **34541**.
 
 ---
 
