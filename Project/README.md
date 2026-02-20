@@ -173,7 +173,7 @@ minikube service frontend
 ```
 
 Cette commande ouvre automatiquement votre navigateur.  
-Si la page ne s'ouvre pas, cliquez sur le port **34541**.
+Si la page ne s'ouvre pas, cliquez sur le deuxieme lien lien.
 
 ---
 
