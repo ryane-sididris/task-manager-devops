@@ -128,7 +128,7 @@ docker run -p 3000:3000 task-manager-backend
 
 # Docker & CI/CD – Infrastructure et Automatisation
 
-**Fait par : Ryane**
+**Fait par : Ryane SID IDRIS**
 
 ---
 
@@ -175,6 +175,8 @@ L'objectif de cette infrastructure est de garantir :
 
 
 # Déploiement Kubernetes avec Minikube
+
+**Fait par : Yacine OUALIKEN**
 
 ## Prérequis
 
@@ -258,4 +260,5 @@ Retournez sur votre navigateur et **rafraîchissez la page**, l'application est 
 ### Auteurs
 
 Réalisé par Yanis NOUILI, Yacine OUALIKEN, Ryane SID IDRIS, Sofiane MOUHOUB, Adam NOUARI
+
 
