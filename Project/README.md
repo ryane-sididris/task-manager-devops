@@ -98,12 +98,10 @@ Le backend expose les endpoints suivants :
 
 Le backend est conçu pour s'aligner sur le contrat API attendu par le frontend.
 
----
 
 ### Lancer le backend en local
 Prérequis : Node.js (>= 18 recommandé)
 
-```bash
 cd devops_base/backend
 npm install
 node server.js
