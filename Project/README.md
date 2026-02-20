@@ -133,14 +133,11 @@ minikube version
 
 ## Ouvrir un premier terminal
 
-### Se placer à la racine du projet
-
-Assurez-vous d’être dans le dossier :
+Assurez-vous d’être à la racine du projet puis démarrez minikube avec :
 
 ```bash
-cd devops_ops-main
+minikube start
 ```
-
 ---
 
 ### Déployer les ressources Kubernetes
@@ -180,29 +177,15 @@ Le frontend sera accessible sur le port **30001**.
 
 ---
 
-## Ouvrir un deuxième terminal
+## Ouvrir un deuxième terminal pour Exposer le backend en local 
 
-### Se placer à la racine du projet
-
-```bash
-cd devops_ops-main
-```
-
----
-
-### Exposer le backend en local 
+Placez vous de nouveau à la racine du projet et faites :
 
 ```bash
 kubectl port-forward service/backend 3000:3000
 ```
 
 Le backend devient alors accessible sur :
-
-```
-http://localhost:3000
-```
-
----
 
 
 Retournez sur votre navigateur et **rafraîchissez la page**, l'application est maintenant fonctionnelle
