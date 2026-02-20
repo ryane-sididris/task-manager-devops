@@ -63,6 +63,66 @@ Les contributions réalisées sur le frontend restent toutefois visibles via d�
 
 ---
 
+## Backend — Task Manager API (Node.js + Express)
+
+### Fait par
+- **Backend : Sofiane MOUHOUB**
+
+### Présentation
+Cette partie du projet correspond à l'API REST du **Task Manager** développée en **Node.js (Express)**.  
+Le serveur gère la logique métier, la persistance des données dans PostgreSQL et expose les points d'entrée nécessaires au bon fonctionnement du frontend.
+
+---
+
+### Fonctionnalités implémentées
+- **CRUD complet**
+  - Récupérer la liste des tâches
+  - Créer une nouvelle tâche
+  - Modifier une tâche (titre, description, priorité, statut)
+  - Supprimer une tâche
+- **Statuts supportés** : **À faire**, **En cours**, **Fini**
+- **Priorité** : **Basse / Haute / Critique**
+- **Santé du système** : Endpoint `/health` pour monitoring (Base de données + Serveur)
+- **CORS & JSON** : Entièrement configuré pour accepter les requêtes du frontend React
+
+---
+
+### API Exposée (contrat fourni)
+Le backend expose les endpoints suivants :
+
+- `GET /tasks` — récupérer toutes les tâches
+- `POST /tasks` — créer une tâche
+- `PUT /tasks/:id` — modifier une tâche / changer son statut
+- `DELETE /tasks/:id` — supprimer une tâche
+- `GET /health` — vérification de l'état de la base de données
+
+Le backend est conçu pour s'aligner sur le contrat API attendu par le frontend.
+
+---
+
+### Lancer le backend en local
+Prérequis : Node.js (>= 18 recommandé)
+
+```bash
+cd devops_base/backend
+npm install
+node server.js
+
+### Dockerisation (DevOps)
+Le projet inclut une configuration Docker pour simplifier le déploiement et l'isolation du service.
+Prérequis : Docker installé sur la machine.
+
+# Se placer dans le dossier backend
+cd devops_base/backend
+
+# Construire l'image Docker
+docker build -t task-manager-backend .
+
+# Lancer le conteneur sur le port 3000
+docker run -p 3000:3000 task-manager-backend
+
+---
+
 # Docker & CI/CD – Infrastructure et Automatisation
 
 **Fait par : Ryane**
