@@ -76,6 +76,8 @@ kubectl config current-context
 minikube status
 ```
 
+---
+
 ## Étapes de lancement (Kubernetes / Minikube)
 
 ### 1) Démarrer Minikube
@@ -83,14 +85,14 @@ minikube status
 minikube start --driver=docker
 ```
 
-##2) Déployer l’application sur le cluster
+## 2) Déployer l’application sur le cluster
 
 Ouvrir un premier terminal et se placer à la racine du projet (là où se trouve le dossier k8s/) :
 ```bash
 kubectl apply -f k8s/
 ```
 
-##3) Attendre que les pods soient prêts
+## 3) Attendre que les pods soient prêts
 
 Surveiller le démarrage des pods :
 
@@ -99,7 +101,7 @@ kubectl get pods -w
 ```
 Attendre que tous les pods soient Running et Ready (1/1), puis arrêter l’affichage avec Ctrl + C (cela n’arrête pas les pods, uniquement le watch).
 
-##4) Accéder au frontend
+## 4) Accéder au frontend
 
 Toujours dans le premier terminal, récupérer l’URL du service frontend :
 
@@ -109,7 +111,7 @@ minikube service frontend --url
 
 Ouvrir l’URL affichée dans un navigateur (souvent un NodePort du type http://192.168.49.2:30001).
 
-##5) Exposer le backend en local (port-forward)
+## 5) Exposer le backend en local (port-forward)
 
 Ouvrir un deuxième terminal et lancer :
 
