@@ -1,4 +1,4 @@
-# Task Manager — Projet DevOps
+# Task Manager : Projet DevOps
 
 ## Introduction
 Ce dépôt contient une application de gestion de tâches (Task Manager) développée dans le cadre du projet DevOps.
@@ -7,10 +7,9 @@ L’objectif est de fournir une application simple avec un déploiement reproduc
 
 ---
 
-## Frontend — Task Manager (React + Vite)
+## Frontend (React + Vite)
 
-### Fait par
-- **Frontend : Yanis Nouili**
+**Fait par : Yanis Nouili**
 
 ### Présentation
 Cette partie du projet correspond à l’interface web **Task Manager** développée en **React (Vite)**. 
@@ -19,23 +18,21 @@ Le frontend permet de gérer des tâches (CRUD) et consomme l’API REST exposé
 ---
 
 ### Fonctionnalités implémentées
-- **CRUD complet**
-  - Ajouter une tâche
-  - Modifier une tâche
-  - Supprimer une tâche
-  - Changer le statut d’une tâche
-- **Statuts en français** : **À faire**, **En cours**, **Fini**
-- **Priorité** : **Basse / Haute / Critique**
-- **Recherche** (barre de recherche)
-- **Filtre par statut** (Tous / À faire / En cours / Fini)
-- **Gestion d’erreurs** (réseau / backend + affichage côté UI)
-- **Mode Mock / Mode API**
-  - `USE_MOCK=true` : utilisation de données mock, (cela été fait au debut sans backend)
-  - `USE_MOCK=false` : connexion au backend via API
+
+Le frontend propose un CRUD complet permettant d’**ajouter** une tâche, de la **modifier**, de la **supprimer** et de **changer son statut**.  
+On peut gérer les statuts : À faire, En cours et Fini.  
+Chaque tâche peut être associée à une priorité : Basse, Haute ou Critique.  
+Une barre de recherche permet de retrouver rapidement une tâche.  
+Un filtre par statut (Tous / À faire / En cours / Fini) permet d’organiser l’affichage.  
+Une gestion d’erreurs est en place : les erreurs réseau ou backend sont détectées et affichées côté UI.  
+Le mode Mock / API est contrôlé par la variable `USE_MOCK`.  
+Lorsque `USE_MOCK=true`, le frontend utilise des données mock (utile au début du développement lorsque le backend n’était pas disponible).  
+Lorsque `USE_MOCK=false`, le frontend se connecte au backend via l’API REST.  
+
 
 ---
 
-### API consommée (contrat attendu)
+### API consommée 
 Le frontend appelle les endpoints suivants :
 
 - `GET /tasks` — récupérer toutes les tâches
@@ -48,18 +45,18 @@ Le frontend est conçu pour s’aligner sur le contrat API de l’équipe.
 ---
 
 ### Lancer le frontend en local (Vite)
-Prérequis : Node.js (>= 18 recommandé)
+Prérequis : Node.js
 
 ```bash
-cd Project/frontend
+cd devops_base/Project/frontend
 npm install
 npm run dev
 ```
 
 ### Note sur l’historique Git (information)
 
-À un moment du projet, l’historique Git de la branche principale a été supprimé par erreur (ex. force-push / reset), ce qui a pu entraîner la disparition de certains commits dans l’onglet “Commits” de GitHub.
-Les contributions réalisées sur le frontend restent toutefois visibles via d’autres éléments de traçabilité (Activity GitHub ou historique local) et le code du frontend présent dans ce dépôt correspond bien au travail réalisé sur cette partie.
+À un moment du projet, l’historique Git de la branche principale a été supprimé par erreur (ex. force-push / reset), ce qui a pu entraîner la disparition de certains commits dont ceux pour le frontend dans l’onglet “Commits” de GitHub.
+Les contributions réalisées sur le frontend restent toutefois visibles via d’autres éléments de traçabilité (Activity ou historique local) et le code du frontend présent dans ce dépôt correspond bien au travail réalisé sur cette partie.
 
 ---
 
