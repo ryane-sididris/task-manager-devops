@@ -18,14 +18,14 @@ Le frontend permet de gérer des tâches (CRUD) et consomme l’API REST exposé
 ---
 
 ### Fonctionnalités implémentées
-Le frontend propose un CRUD complet permettant d’**ajouter** une tâche, de la **modifier**, de la **supprimer** et de **changer >
+Le frontend propose un CRUD complet permettant d’**ajouter** une tâche, de la **modifier**, de la **supprimer** et de **changer**.
 
 - On peut gérer les statuts : **À faire**, **En cours** et **Fini**.
 - Chaque tâche peut être associée à une priorité : **Basse**, **Haute** ou **Critique**.
 - Une barre de recherche permet de retrouver rapidement une tâche.
 - Un filtre par statut (**Tous** / **À faire** / **En cours** / **Fini**) permet d’organiser l’affichage.
 
-Une gestion d’erreurs est en place : les erreurs réseau ou backend sont détectées et affichées côté UI.
+Une gestion d’erreurs est en place : les erreurs réseau ou backend sont détectées et affichées côté UI.  
 Le mode Mock / API est contrôlé par la variable `USE_MOCK`.
 
 - Lorsque `USE_MOCK=true`, le frontend utilise des données mock (utile au début du développement lorsque le backend n’était pas >
