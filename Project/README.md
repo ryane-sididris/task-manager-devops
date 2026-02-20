@@ -63,6 +63,54 @@ Les contributions réalisées sur le frontend restent toutefois visibles via d�
 
 ---
 
+# Docker & CI/CD – Infrastructure et Automatisation
+
+**Fait par : Ryane**
+
+---
+
+## Présentation
+
+Cette partie assure que l'application peut être lancée sur n'importe quelle machine de manière identique grâce à Docker et que chaque modification du code est automatiquement vérifiée et publiée via une pipeline CI/CD.
+
+---
+
+## Docker & Docker Compose
+
+L'application est entièrement conteneurisée. L'infrastructure se compose de trois services :
+
+- **Frontend** : Serveur Nginx servant l'application React.
+- **Backend** : API Node.js / Express.
+- **Database** : Base de données PostgreSQL.
+
+### Points clés de l'implémentation
+
+- **Persistance des données** : Utilisation de Docker Volumes afin que les tâches ne soient pas supprimées lors de l'arrêt des conteneurs.
+- **Optimisation** : Utilisation de builds multi-étapes pour réduire la taille des images Docker.
+- **Réseau** : Isolation des services dans un réseau Docker dédié pour assurer une communication sécurisée entre les conteneurs.
+
+---
+
+## Pipeline CI/CD (GitHub Actions)
+
+Une pipeline a été mise en place pour automatiser le cycle de vie du logiciel :
+
+- **Build** : Compilation du frontend et du backend à chaque "push" sur le dépôt.
+- **Tests** : Validation automatique du code afin de garantir sa stabilité.
+- **Push Docker Hub** : Publication automatique des images sur Docker Hub uniquement si tous les tests passent avec succès.
+
+---
+
+## Objectif Global
+
+L'objectif de cette infrastructure est de garantir :
+
+- Une reproductibilité complète de l'environnement.
+- Une automatisation du déploiement.
+- Une réduction des erreurs humaines.
+- Une intégration continue fiable et sécurisée.
+
+
 ## Déploiement Kubernetes (Minikube)
 
 ### Prérequis
