@@ -185,7 +185,7 @@ Placez vous de nouveau à la racine du projet et faites :
 kubectl port-forward service/backend 3000:3000
 ```
 
-Le backend devient alors accessible sur :
+Le backend devient alors accessible
 
 
 Retournez sur votre navigateur et **rafraîchissez la page**, l'application est maintenant fonctionnelle
